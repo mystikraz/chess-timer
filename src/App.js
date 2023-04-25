@@ -6,8 +6,8 @@ function App({ delayResend = "600" }) {
   const timer2 = useRef(null)
   const [delay1, setDelay1] = useState(+delayResend);
   const [delay2, setDelay2] = useState(+delayResend);
-  const [isPlaying1, setPlaying1] = useState(true);
-  const [isPlaying2, setPlaying2] = useState(true);
+  const [isPlaying1, setPlaying1] = useState(false);
+  const [isPlaying2, setPlaying2] = useState(false);
   const minutes1 = Math.floor(delay1 / 60);
   const seconds1 = Math.floor(delay1 % 60);
   const minutes2 = Math.floor(delay2 / 60);
@@ -39,14 +39,14 @@ function App({ delayResend = "600" }) {
 
   return (
     <div className='container'>
-      <div className='row mb-2' style={{height: "350px"}}>
-      <button className='btn btn-primary' onClick={() => {setPlaying1(!isPlaying1);setPlaying2(isPlaying1)}}>
-            {minutes1}:{seconds1}
+      <div className='row mb-2' style={{height: "350px", fontSize:"18px"}}>
+      <button className='btn btn-primary' onClick={() => {setPlaying2(!isPlaying2);setPlaying1(isPlaying2)}}>
+            <h1>{minutes1}:{seconds1}</h1>
           </button>
       </div>
-      <div className='row' style={{height: "350px"}}>
-      <button className='btn btn-info' onClick={() => {setPlaying2(!isPlaying2);setPlaying1(isPlaying2)}}>
-            {minutes2}:{seconds2}
+      <div className='row' style={{height: "350px", fontSize:"18px"}}>
+      <button className='btn btn-info' onClick={() => {setPlaying1(!isPlaying1);setPlaying2(isPlaying1)}}>
+            <h1>{minutes2}:{seconds2}</h1>
           </button>
       </div>
     </div>
