@@ -1,23 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useRef, useState } from "react";
 
-function App() {
+
+function App({ delayResend = "600" }) {
+  const timer1 = useRef(null)
+  const timer2 = useRef(null)
+  const [delay1, setDelay1] = useState(+delayResend);
+  const [delay2, setDelay2] = useState(+delayResend);
+  const [isPlaying1, setPlaying1] = useState(true);
+  const [isPlaying2, setPlaying2] = useState(true);
+  const minutes1 = Math.floor(delay1 / 60);
+  const seconds1 = Math.floor(delay1 % 60);
+  const minutes2 = Math.floor(delay2 / 60);
+  const seconds2 = Math.floor(delay2 % 60);
+
+  useEffect(() => {
+    if (isPlaying1) {
+      timer1.current = setInterval(() => {
+        setDelay1(delay1 - 1);
+      }, 1000);
+    }
+    if (delay1 === 0) {
+      clearInterval(timer1.current);
+    }
+    if (isPlaying2) {
+      timer2.current = setInterval(() => {
+        setDelay2(delay2 - 1);
+      }, 1000);
+    }
+    if (delay2 === 0) {
+      clearInterval(timer2.current);
+    }
+
+    return () => {
+      clearInterval(timer1.current);
+      clearInterval(timer2.current);
+    };
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      <div className='row mb-2' style={{height: "350px"}}>
+      <button className='btn btn-primary' onClick={() => {setPlaying1(!isPlaying1);setPlaying2(isPlaying1)}}>
+            {minutes1}:{seconds1}
+          </button>
+      </div>
+      <div className='row' style={{height: "350px"}}>
+      <button className='btn btn-info' onClick={() => {setPlaying2(!isPlaying2);setPlaying1(isPlaying2)}}>
+            {minutes2}:{seconds2}
+          </button>
+      </div>
     </div>
   );
 }
