@@ -9,8 +9,8 @@ trigger:
 pool: rajagent
 
 variables:
-  projectFolder: 'src/react'
-  buildOutputFolder: 'src/react/build'
+  projectFolder: 'src/'
+  buildOutputFolder: 'src/build'
 
 steps:
 - task: NodeTool@0
@@ -19,9 +19,10 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    pushd $(projectFolder) && npm install && popd
-    pushd $(projectFolder) && npm run build && popd
-
+    npm install
+    npm run build
+  displayName: 'install and build'
+  workingDirectory: $(projectFolder)
 
 - task: CopyFiles@2
   inputs:
@@ -29,6 +30,7 @@ steps:
     contents: '**/*' 
     targetFolder: '$(Build.ArtifactStagingDirectory)'
     cleanTargetFolder: true
+  displayName: 'copy files'
     
 - task: ArchiveFiles@2
   inputs:
@@ -36,9 +38,8 @@ steps:
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     includeRootFolder: false
+    replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'    
