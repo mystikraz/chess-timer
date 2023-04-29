@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: rajagent
+  vmImage: RAJANTHEGREAT
 
 steps:
 - task: NodeTool@0
