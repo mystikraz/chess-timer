@@ -9,8 +9,7 @@ trigger:
 pool: rajagent
 
 variables:
-  projectFolder: '/'
-  buildOutputFolder: '/build'
+  projectFolder: react-azure-demo
 
 steps:
 - task: NodeTool@0
@@ -26,7 +25,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    sourceFolder: '$(buildOutputFolder)' 
+    sourceFolder: '$(projectFolder)/build' 
     contents: '**/*' 
     targetFolder: '$(Build.ArtifactStagingDirectory)'
     cleanTargetFolder: true
