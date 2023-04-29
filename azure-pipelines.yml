@@ -9,8 +9,8 @@ trigger:
 pool: rajagent
 
 variables:
-  projectFolder: 'src/'
-  buildOutputFolder: 'src/build'
+  projectFolder: '/'
+  buildOutputFolder: '/build'
 
 steps:
 - task: NodeTool@0
