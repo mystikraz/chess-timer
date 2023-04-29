@@ -9,7 +9,7 @@ trigger:
 pool: rajagent
 
 variables:
-  projectFolder: react-azure-demo
+  projectFolder: '$(System.DefaultWorkingDirectory)'
 
 steps:
 - task: NodeTool@0
